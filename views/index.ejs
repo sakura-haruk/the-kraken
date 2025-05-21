@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Accueil</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+    }
+    h1 {
+      color: #2ecc71;
+    }
+    .server-card {
+      border: 1px solid #444;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      background: #222;
+    }
+    .server-card h2 {
+      margin: 0 0 10px;
+    }
+    .configure-button {
+      background-color: #2ecc71;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+      text-decoration: none;
+    }
+    .configure-button:hover {
+      background-color: #27ae60;
+    }
+    .logout-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #e74c3c;
+      text-decoration: none;
+    }
+    .logout-link:hover {
+      text-decoration: underline;
+    }
+    .iconuser {
+      width: 75px; /* Ajustez la taille selon vos besoins */
+      height: 75px; /* Assurez-vous que la largeur et la hauteur sont égales */
+      border-radius: 50%; /* Rend l'image circulaire */
+      object-fit: cover; /* Ajuste l'image pour qu'elle remplisse le cercle */
+      border: 2px solid #000; /* Optionnel : ajoute une bordure */
+    }
+        .iconserveur {
+      width: 75px; /* Ajustez la taille selon vos besoins */
+      height: 75px; /* Assurez-vous que la largeur et la hauteur sont égales */
+      border-radius: 50%; /* Rend l'image circulaire */
+      object-fit: cover; /* Ajuste l'image pour qu'elle remplisse le cercle */
+      border: 2px solid #000; /* Optionnel : ajoute une bordure */
+    }
+  </style>
+</head>
+<body>
+  <% console.log(user) %>
+  <h1><% if (user.avatar) { %>
+        <img src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>.webp" alt="icon user" class="iconuser" width="80" class="user-icon">
+      <% } else { %>
+        <img src="https://via.placeholder.com/80?text=No+Icon" alt="Pas d'icône" class="user-icon">
+      <% } %>
+      Bienvenue, <%= user.username %> !</h1>
+  <p>Voici les serveurs que vous pouvez configurer :</p>
+
+  <% if (guilds.length === 0) { %>
+    <p>Aucun serveur disponible.</p>
+  <% } else { %>
+    <% guilds.forEach(guild => { %>
+      <div class="server-card">
+        <% if (guild.icon) { %>
+        <img src="https://cdn.discordapp.com/icons/<%= guild.id %>/<%= guild.icon %>.webp" alt="Icône du serveur" class="iconserveur" width="80" class="server-icon">
+      <% } else { %>
+        <img src="https://via.placeholder.com/80?text=No+Icon" alt="Pas d'icône" class="server-icon">
+      <% } %>
+        <h2><%= guild.name %></h2>
+        <p>ID : <%= guild.id %></p>
+        <a href="/server/<%= guild.id %>" class="configure-button">Configurer</a>
+      </div>
+    <% }); %>
+  <% } %>
+
+  <a class="logout-link" href="/logout">🔒 Déconnexion</a>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "123456789012345678": {
+    "prefix": "!",
+    "welcomeEnabled": true,
+    "welcomeMessage": "Bienvenue {user}!",
+    "welcomeChannel": "123456789012345678"
+  },
+  "987654321098765432": {
+    "prefix": "#",
+    "welcomeEnabled": false
+  },
+  "1335236226156072960": {
+    "prefix": ".",
+    "welcomeEnabled": "true",
+    "welcomeMessage": "Bienvenue a toi {user} !",
+    "goodbyeEnabled": "true",
+    "goodbyeMessage": "{user} nous a quitté, ésperont le revoir rapidement",
+    "welcomeChannel": "1369210837289402418"
+  },
+  "1243799257908248626": {
+    "prefix": "!",
+    "welcomeEnabled": true,
+    "welcomeMessage": "Hissez les couleurs et sonnez la cloche ! 🦜\r\n\r\nL'équipage du **KRAKEN** souhaite la bienvenue à notre nouvelle recrue, {user} !\r\n\r\nNous sommes ravis de t'avoir à nos côtés pour piller des trésors et naviguer sur les sept mers. Fais comme chez toi, explore les différents canaux et n'oublie pas de saluer tes nouveaux frères et sœurs d'armes.\r\n\r\nÀ l'abordage !",
+    "goodbyeEnabled": true,
+    "goodbyeMessage": "{user} est passé par dessus bord ! Espérons qu'il ne croise pas un requin. 🌊",
+    "welcomeChannel": "1374672740400894053",
+    "langueRoles": {
+      "fr": "1243799257928962154",
+      "en": "1243799257928962156",
+      "es": "1243799257928962153",
+      "de": "1243799257928962155",
+      "pt": "1243799257928962151",
+      "ru": "1299280103016108096",
+      "hu": "1243799257928962152"
+    }
+  }
+}

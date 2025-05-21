@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuration du Serveur - <%= guild.name %></title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .retour {
+      text-align: center;
+    }
+    .server-card {
+      border: 1px solid #444;
+      padding: 15px;
+      margin: 10px auto;
+      border-radius: 8px;
+      background: #222;
+      max-width: 600px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #444;
+      background: #333;
+      color: #fff;
+      resize: none;
+    }
+    button {
+      background-color: #2ecc71;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: white;
+    }
+    button:hover {
+      background-color: #27ae60;
+    }
+    .server-icon {
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <h1>Configuration du Serveur - <%= guild.name %></h1>
+
+  <div class="server-card">
+    <h2>Serveur : <%= guild.name %></h2>
+    <p><strong>ID :</strong> <%= guild.id %></p>
+    <p>
+      <% if (guild.icon) { %>
+        <img src="<%= guild.iconURL() %>" alt="Icône du serveur" width="80" class="server-icon">
+      <% } else { %>
+        <img src="https://via.placeholder.com/80?text=No+Icon" alt="Pas d'icône" class="server-icon">
+      <% } %>
+    </p>
+
+    <form action="/server/<%= guild.id %>/update" method="POST">
+      <div class="form-group">
+        <label for="prefix">Préfixe des commandes :</label>
+        <input type="text" id="prefix" name="prefix" value="<%= settings.prefix || '!' %>" placeholder="Entrez un préfixe" required>
+      </div>
+
+      <!-- Section bienvenue -->
+      <h3>🎉 Message de Bienvenue</h3>
+      <div class="form-group">
+        <label for="welcomeEnabled">Activer le message de bienvenue :</label>
+        <select id="welcomeEnabled" name="welcomeEnabled">
+          <option value="true" <%= settings.welcomeEnabled ? 'selected' : '' %>>Activé</option>
+          <option value="false" <%= !settings.welcomeEnabled ? 'selected' : '' %>>Désactivé</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="welcomeMessage">Contenu du message :</label>
+        <textarea id="welcomeMessage" name="welcomeMessage" rows="4" placeholder="Bienvenue {user} sur {server} !"><%= settings.welcomeMessage || '' %></textarea>
+      </div>
+
+      <!-- Section départ -->
+      <h3>👋 Message de Départ</h3>
+      <div class="form-group">
+        <label for="goodbyeEnabled">Activer le message de départ :</label>
+        <select id="goodbyeEnabled" name="goodbyeEnabled">
+          <option value="true" <%= settings.goodbyeEnabled ? 'selected' : '' %>>Activé</option>
+          <option value="false" <%= !settings.goodbyeEnabled ? 'selected' : '' %>>Désactivé</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="goodbyeMessage">Contenu du message :</label>
+        <textarea id="goodbyeMessage" name="goodbyeMessage" rows="4" placeholder="{user} a quitté {server}."><%= settings.goodbyeMessage || '' %></textarea>
+      </div>
+
+      <!-- Salon commun pour bienvenue/départ -->
+      <div class="form-group">
+        <label for="welcomeChannel">Salon d’annonce :</label>
+        <select id="welcomeChannel" name="welcomeChannel">
+          <% channels.forEach(channel => { %>
+            <option value="<%= channel.id %>" <%= settings.welcomeChannel === channel.id ? 'selected' : '' %>>#<%= channel.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <h3>🌐 Rôles par langue</h3>
+<% const langues = { fr: 'Français', en: 'English', es: 'Español', de: 'Deutsch', pt: 'Português', ru: 'Русский', hu: 'Magyar' }; %>
+<% for (const code in langues) { %>
+  <div class="form-group">
+    <label for="lang_<%= code %>">Rôle pour <%= langues[code] %> :</label>
+    <input type="text" id="lang_<%= code %>" name="lang_<%= code %>" value="<%= settings.langueRoles?.[code] || '' %>" placeholder="ID du rôle pour <%= langues[code] %>">
+  </div>
+<% } %>
+
+
+      <button type="submit">💾 Mettre à jour</button>
+    </form>
+  </div>
+
+  <p class="retour"><a href="/">Retour au Dashboard</a></p>
+</body>
+</html>
+
